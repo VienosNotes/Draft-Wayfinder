@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using DraftWayfinder.Models;
 using Livet;
 
 namespace DraftWayfinder
@@ -45,8 +47,6 @@ namespace DraftWayfinder
         #endregion
 
         #region Binding Properties
-
-
         private readonly IReadOnlyCollection<string> _xAxisItems = new ReadOnlyCollection<string>(new List<string>{ _cmc, _power, _toughness });
         public IReadOnlyCollection<string> XAxisItems => _xAxisItems;
 
@@ -107,6 +107,27 @@ namespace DraftWayfinder
                 RaisePropertyChanged();
             }
         }
+
+        public IReadOnlyCollection<Set> SetItems { get; }
+
+        private Set _set;
+
+        public Set Set
+        {
+            get => _set;
+            set
+            {
+                if (_set == value) { return; }
+                _set = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
+
+        public MainWindowViewModel()
+        {
+            SetItems = new ReadOnlyCollection<Set>(Set.AllSets().ToList());
+            _set = SetItems.FirstOrDefault();
+        }
     }
 }
