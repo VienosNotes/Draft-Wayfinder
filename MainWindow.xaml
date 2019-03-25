@@ -22,7 +22,7 @@
           <ComboBox x:Name="Sets"  Width="200" Margin="5"
                     ItemsSource="{Binding SetItems, Mode=OneTime}" SelectedItem="{Binding Set, Mode=TwoWay}"
                     VerticalContentAlignment="Center"/>
-            <Button Content="Load Pool" Width="100" Margin="5" />
+            <Button Content="Load Pool" Width="100" Margin="5" Command="{Binding LoadPoolCommand}"/>
             <ComboBox x:Name="XAxis" Margin="20, 5, 5, 5" Width="100"
                       ItemsSource="{Binding XAxisItems}" SelectedItem="{Binding XAxis, Mode=TwoWay}"
                       VerticalContentAlignment="Center"/>

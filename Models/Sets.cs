@@ -18,6 +18,7 @@ namespace DraftWayfinder.Models
     public class Set
     {
         private static readonly string SetsUrl = "https://api.magicthegathering.io/v1/sets";
+        private static readonly string CardsUrl = "https://mtgjson.com/json/";
         private static readonly string ExecPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private static readonly string DatabaseDir = $@"{ExecPath}\databases";
         private static readonly string SetsFilepath = $@"{ExecPath}\databases\sets.json";
@@ -75,13 +76,41 @@ namespace DraftWayfinder.Models
 
         public IEnumerable<Card> GetCards()
         {
-            return null;
+            var db = $@"{DatabaseDir}\{Code}.json";
+            if (!File.Exists(db))
+            {
+                using (var writer = File.Create(db))
+                using (var stream = new HttpClient().GetStreamAsync($"{CardsUrl}{Code}.json").Result)
+                {
+                    stream.CopyTo(writer);
+                }
+            }                
+
+            using (var reader = new FileStream(db, FileMode.Open))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(Cards));
+
+                try
+                {
+                    var deserialized = (Cards) serializer.ReadObject(reader);
+                    var allCreatures = deserialized.Body
+                        .Where(s => s.Type.Contains("Creature"));
+                    return allCreatures;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
+            }            
         }
 
         public override string ToString()
         {
             return Name;
         }
+
+
     }
 
     [DataContract]

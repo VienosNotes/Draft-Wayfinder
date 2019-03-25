@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using DraftWayfinder.Models;
 using Livet;
+using Livet.Commands;
 
 namespace DraftWayfinder
 {
@@ -128,6 +129,16 @@ namespace DraftWayfinder
         {
             SetItems = new ReadOnlyCollection<Set>(Set.AllSets().ToList());
             _set = SetItems.FirstOrDefault();
+        }
+
+        private ViewModelCommand _loadPoolCommand;
+        public ViewModelCommand LoadPoolCommand => _loadPoolCommand ?? (_loadPoolCommand = new ViewModelCommand(LoadPoolImpl));
+
+        private void LoadPoolImpl()
+        {
+            var cards = Set.GetCards();
+            Console.WriteLine($"LOAD {cards.Count()} cards");
+            return;
         }
     }
 }

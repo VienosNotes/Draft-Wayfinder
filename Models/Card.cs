@@ -2,38 +2,36 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DraftWayfinder.Models
 {
+    [DataContract]
     public class Card
     {
-        public readonly double CMC;
-        public readonly double Power;
-        public readonly double Toughness;
-        public readonly string Cost;
-        public readonly Rarity Rarity;
-        public readonly Color Color;
+        [DataMember(Name = "convertedManaCost")]
+        public double CMC;
+        [DataMember(Name = "power")]
+        public string RawPower;
+        [DataMember(Name = "toughness")]
+        public string RawToughness;
+        [DataMember(Name = "manaCost")]
+        public string Cost;
+        [DataMember(Name="rarity")]
+        public string Rarity;
+        [DataMember(Name = "colors")]
+        public List<string> Colors;
+        [DataMember(Name = "type")]
+        public readonly string Type;
+    }
 
-        public Card(string cost, int power, int toughness, Rarity rarity)
-        {
-            CMC = CalcCMC(cost);
-            Cost = cost;
-            Power = power;
-            Toughness = toughness;
-            Rarity = rarity;
-        }
-
-        public static double CalcCMC(string cost)
-        {
-            return 0;
-        }
-
-        public static Color CalcColor(string cost)
-        {
-            return Color.Colorless;
-        }
+    [DataContract]
+    public class Cards
+    {
+        [DataMember(Name = "cards")]
+        public List<Card> Body { get; set; }
     }
 
     public enum Rarity
