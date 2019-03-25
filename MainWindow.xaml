@@ -1,0 +1,34 @@
+﻿<c:GlowWindow x:Class="DraftWayfinder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DraftWayfinder"
+        mc:Ignorable="d"
+        Title="Draft Wayfinder" Height="450" Width="800"
+        xmlns:c="clr-namespace:DraftWayfinder.Controls"
+        ThemeColor="#666666" Background="#333333" TitleCaptionBrush="Gray">
+    <c:GlowWindow.Resources>
+      <local:MainWindowViewModel x:Key="ViewModel"/>
+    </c:GlowWindow.Resources>
+    <Grid DataContext="{StaticResource ViewModel}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <Button Content="Load Pool" Width="100" Margin="5" />
+            <ComboBox x:Name="XAxis" Margin="20, 5, 5, 5" Width="100"
+                      ItemsSource="{Binding XAxisItems}" SelectedItem="{Binding XAxis, Mode=TwoWay}"
+                      VerticalContentAlignment="Center"/>
+            <Label Content="/" Margin="2, 0, 2, 2" FontSize="20" VerticalAlignment="Center" Foreground="#707070"/>
+            <ComboBox x:Name="YAxis"  Width="200" Margin="5"
+                      ItemsSource="{Binding YAxisItems}" SelectedItem="{Binding YAxis, Mode=TwoWay}"
+                      VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1"></StackPanel>
+        <WrapPanel Grid.Row="2"></WrapPanel>
+    </Grid>
+</c:GlowWindow>
