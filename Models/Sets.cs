@@ -76,6 +76,11 @@ namespace DraftWayfinder.Models
 
         public IEnumerable<Card> GetCards()
         {
+            if (_cache != null)
+            {
+                return _cache;
+            }
+
             var db = $@"{DatabaseDir}\{Code}.json";
             if (!File.Exists(db))
             {
@@ -95,7 +100,8 @@ namespace DraftWayfinder.Models
                     var deserialized = (Cards) serializer.ReadObject(reader);
                     var allCreatures = deserialized.Body
                         .Where(s => s.Type.Contains("Creature"));
-                    return allCreatures;
+                    _cache = allCreatures.ToList();
+                    return _cache;
                 }
                 catch (Exception e)
                 {
@@ -110,6 +116,7 @@ namespace DraftWayfinder.Models
             return Name;
         }
 
+        private IEnumerable<Card> _cache = null;
 
     }
 

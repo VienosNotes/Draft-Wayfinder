@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using DraftWayfinder.Models;
 using Livet;
 using Livet.Commands;
+using OxyPlot;
 
 namespace DraftWayfinder
 {
@@ -105,9 +106,12 @@ namespace DraftWayfinder
             {
                 if (_yAxis == value) { return; }
                 _yAxis = value;
+                UpdateGraph(_xAxis, value);
                 RaisePropertyChanged();
             }
         }
+
+
 
         public IReadOnlyCollection<Set> SetItems { get; }
 
@@ -140,5 +144,37 @@ namespace DraftWayfinder
             Console.WriteLine($"LOAD {cards.Count()} cards");
             return;
         }
+
+        private void UpdateGraph(string xAxis, string value)
+        {
+            var cards = Set.GetCards();
+            if (xAxis == _cmc)
+            {
+                if (value == _avgPower)
+                {
+                    WhiteData = PlotModelFactory.GetCMCAvgPower(cards);
+                }
+                else if (value == _numOfCreatures)
+                {
+                    WhiteData = PlotModelFactory.GetNumOfCreatures(cards);
+                }
+            }
+
+            return;
+        }
+
+        private IEnumerable<DataPoint> _whiteData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> WhiteData
+        {
+            get => _whiteData;
+            set
+            {
+                if (_whiteData == value) { return; }
+                _whiteData = value;
+                RaisePropertyChanged();
+            }
+        }
+        
     }
 }

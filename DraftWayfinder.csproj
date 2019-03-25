@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\PlotModelFactory.cs" />
     <Compile Include="Models\Pool.cs" />
     <Compile Include="Models\Selector.cs" />
     <Compile Include="Models\Sets.cs" />

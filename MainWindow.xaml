@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Draft Wayfinder" Height="450" Width="800"
         xmlns:c="clr-namespace:DraftWayfinder.Controls"
-        ThemeColor="#666666" Background="#333333" TitleCaptionBrush="Gray">
+        ThemeColor="#666666" Background="#333333" TitleCaptionBrush="Gray"
+              xmlns:oxy="http://oxyplot.org/wpf">
     <c:GlowWindow.Resources>
       <local:MainWindowViewModel x:Key="ViewModel"/>
     </c:GlowWindow.Resources>
@@ -32,6 +33,16 @@
                       VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="1"></StackPanel>
-        <WrapPanel Grid.Row="2"></WrapPanel>
+        <WrapPanel Grid.Row="2" Width="500" Height="300">
+            <oxy:Plot Width="500" Height="300">
+                <oxy:Plot.Series>
+                    <oxy:LineSeries ItemsSource="{Binding WhiteData}" Foreground="Aqua"/>
+                </oxy:Plot.Series>
+                <oxy:Plot.Axes>
+                  <oxy:LinearAxis Position="Left" Title="Avg Power" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"/>
+                  <oxy:LinearAxis Position="Bottom" Title="CMC" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"/>
+                </oxy:Plot.Axes>
+            </oxy:Plot>
+        </WrapPanel>
     </Grid>
 </c:GlowWindow>
