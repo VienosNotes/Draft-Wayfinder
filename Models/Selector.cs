@@ -12,12 +12,13 @@ namespace DraftWayfinder.Models
         {
             if (options.MultiOnly)
             {
-                return pool.Where(c => c.Colors.All(col => options.Colors.Contains(col)) &&
+                return pool.Where(c => c.Colors.All(col => options.Colors.Contains(col)) &&                        
                                        c.Colors.Count() >= 2 &&
                                        options.Rarities.Contains(c.Rarity)).ToList();
             }
 
             return pool.Where(c => c.Colors.All(col => options.Colors.Contains(col)) &&
+                                   (c.Colors.Any() || options.Colors.Contains(Color.Colorless)) && //exclude colorless unless such specified
                                    options.Rarities.Contains(c.Rarity)).ToList();
         }
     }

@@ -131,8 +131,9 @@ namespace DraftWayfinder
         #endregion
 
         #region Plot Source
-        private IEnumerable<DataPoint> _whiteData = new List<DataPoint>();
 
+        #region White
+        private IEnumerable<DataPoint> _whiteData = new List<DataPoint>();
         public IEnumerable<DataPoint> WhiteData
         {
             get => _whiteData;
@@ -144,8 +145,21 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _blueData = new List<DataPoint>();
+        private List<Card> _whiteSamples = new List<Card>();
+        public IEnumerable<Card> WhiteSamples
+        {
+            get => _whiteSamples;
+            set
+            {
+                if (_whiteSamples == value) { return; }
+                _whiteSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Blue
+        private IEnumerable<DataPoint> _blueData = new List<DataPoint>();
         public IEnumerable<DataPoint> BlueData
         {
             get => _blueData;
@@ -157,8 +171,21 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _blackData = new List<DataPoint>();
+        private List<Card> _blueSamples = new List<Card>();
+        public IEnumerable<Card> BlueSamples
+        {
+            get => _blueSamples;
+            set
+            {
+                if (_blueSamples == value) { return; }
+                _blueSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Black
+        private IEnumerable<DataPoint> _blackData = new List<DataPoint>();
         public IEnumerable<DataPoint> BlackData
         {
             get => _blackData;
@@ -170,8 +197,21 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _redData = new List<DataPoint>();
+        private List<Card> _blackSamples = new List<Card>();
+        public IEnumerable<Card> BlackSamples
+        {
+            get => _blackSamples;
+            set
+            {
+                if (_blackSamples == value) { return; }
+                _blackSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Red
+        private IEnumerable<DataPoint> _redData = new List<DataPoint>();
         public IEnumerable<DataPoint> RedData
         {
             get => _redData;
@@ -183,8 +223,21 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _greenData = new List<DataPoint>();
+        private List<Card> _redSamples = new List<Card>();
+        public IEnumerable<Card> RedSamples
+        {
+            get => _redSamples;
+            set
+            {
+                if (_redSamples == value) { return; }
+                _redSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Green
+        private IEnumerable<DataPoint> _greenData = new List<DataPoint>();
         public IEnumerable<DataPoint> GreenData
         {
             get => _greenData;
@@ -196,8 +249,21 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _goldData = new List<DataPoint>();
+        private List<Card> _greenSamples = new List<Card>();
+        public IEnumerable<Card> GreenSamples
+        {
+            get => _greenSamples;
+            set
+            {
+                if (_greenSamples == value) { return; }
+                _greenSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Gold (Multicolored)
+        private IEnumerable<DataPoint> _goldData = new List<DataPoint>();
         public IEnumerable<DataPoint> GoldData
         {
             get => _goldData;
@@ -209,8 +275,48 @@ namespace DraftWayfinder
             }
         }
 
-        private IEnumerable<DataPoint> _totalData = new List<DataPoint>();
+        private List<Card> _goldSamples = new List<Card>();
+        public IEnumerable<Card> GoldSamples
+        {
+            get => _goldSamples;
+            set
+            {
+                if (_goldSamples == value) { return; }
+                _goldSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Brown (Colorless)
+        private IEnumerable<DataPoint> _brownData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> BrownData
+        {
+            get => _brownData;
+            set
+            {
+                if (_brownData == value) { return; }
+                _brownData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private List<Card> _brownSamples = new List<Card>();
+        public IEnumerable<Card> BrownSamples
+        {
+            get => _brownSamples;
+            set
+            {
+                if (_brownSamples == value) { return; }
+                _brownSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region Total
+        private IEnumerable<DataPoint> _totalData = new List<DataPoint>();
         public IEnumerable<DataPoint> TotalData
         {
             get => _totalData;
@@ -221,6 +327,19 @@ namespace DraftWayfinder
                 RaisePropertyChanged();
             }
         }
+
+        private List<Card> _totalSamples = new List<Card>();
+        public IEnumerable<Card> TotalSamples
+        {
+            get => _totalSamples;
+            set
+            {
+                if (_totalSamples == value) { return; }
+                _totalSamples = value.ToList();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         private double _yMax = 10;
         public double YMax
@@ -245,6 +364,30 @@ namespace DraftWayfinder
                 RaisePropertyChanged();
             }
 
+        }
+
+        private double _totalXMax = 10;
+        public double TotalXMax
+        {
+            get => _totalXMax;
+            set
+            {
+                if (_totalXMax == value) { return; }
+                _totalXMax = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private double _totalYMax = 10;
+        public double TotalYMax
+        {
+            get => _totalYMax;
+            set
+            {
+                if (_totalYMax == value) { return; }
+                _totalYMax = value;
+                RaisePropertyChanged();
+            }
         }
         #endregion
 
@@ -293,14 +436,28 @@ namespace DraftWayfinder
         private void UpdatePlotInner(Func<IEnumerable<Card>, IEnumerable<DataPoint>> func, IEnumerable<Card> pool)
         {
             var cards = pool.ToList();
-            WhiteData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.White}, Rarities = Rarities})).ToList();
-            BlueData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Blue}, Rarities = Rarities})).ToList();
-            BlackData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Black}, Rarities = Rarities})).ToList();
-            RedData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Red}, Rarities = Rarities})).ToList();
-            GreenData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Green}, Rarities = Rarities})).ToList();
-            GoldData = func.Invoke(Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities, MultiOnly = true })).ToList();
+            WhiteSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.White }, Rarities = Rarities }).ToList();
+            WhiteData = func.Invoke(WhiteSamples).ToList();
 
-            var points = new List<IEnumerable<DataPoint>> {WhiteData, BlueData, BlackData, RedData, GreenData, GoldData}.SelectMany(l => l).ToList();
+            BlueSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.Blue }, Rarities = Rarities });
+            BlueData = func.Invoke(BlueSamples).ToList();
+
+            BlackSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.Black }, Rarities = Rarities });
+            BlackData = func.Invoke(BlackSamples).ToList();
+
+            RedSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.Red }, Rarities = Rarities });
+            RedData = func.Invoke(RedSamples).ToList();
+
+            GreenSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.Green }, Rarities = Rarities });
+            GreenData = func.Invoke(GreenSamples).ToList();
+
+            BrownSamples = Selector.Fetch(cards, new SelectorOptions { Colors = new[] { Color.Colorless }, Rarities = Rarities });
+            BrownData = func.Invoke(BrownSamples).ToList();
+
+            GoldSamples = Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities, MultiOnly = true });
+            GoldData = func.Invoke(GoldSamples).ToList();
+
+            var points = new List<IEnumerable<DataPoint>> {WhiteData, BlueData, BlackData, RedData, GreenData, BrownData, GoldData}.SelectMany(l => l).ToList();
 
             try
             {
@@ -312,7 +469,18 @@ namespace DraftWayfinder
                 Console.WriteLine(e.Message);
             }
 
-            TotalData = func.Invoke(Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities })).ToList();            
+            TotalSamples = Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities });
+            TotalData = func.Invoke(TotalSamples).ToList();
+
+            try
+            {
+                TotalXMax = TotalData.Max(p => p.X);
+                TotalYMax = TotalData.Max(p => p.Y);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         
     }

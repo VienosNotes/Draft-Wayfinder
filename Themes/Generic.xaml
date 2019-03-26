@@ -438,6 +438,7 @@
     <Color x:Key="RedKeyColor" R="0xFF" G="0x66" B="0x66" A="0xFF" />
     <Color x:Key="GreenKeyColor" R="0x4F" G="0xD6" B="0x51" A="0xFF" />
     <Color x:Key="GoldKeyColor" R="0xD1" G="0xD6" B="0x4D" A="0xFF" />
+    <Color x:Key="BrownKeyColor" R="0x9E" G="0x81" B="0x6E" A="0xFF" />
     <Color x:Key="OrangeKeyColor" R="0xF9" G="0x7E" B="0x2C" A="0xFF" />
 
 
@@ -447,6 +448,7 @@
     <SolidColorBrush x:Key="RedKeyBrush" Color="{StaticResource RedKeyColor}"/>
     <SolidColorBrush x:Key="GreenKeyBrush" Color="{StaticResource GreenKeyColor}"/>
     <SolidColorBrush x:Key="GoldKeyBrush" Color="{StaticResource GoldKeyColor}"/>
+    <SolidColorBrush x:Key="BrownKeyBrush" Color="{StaticResource BrownKeyColor}"/>
     <SolidColorBrush x:Key="OrangeKeyBrush" Color="{StaticResource OrangeKeyColor}"/>
 
 <!-- Button End -->
