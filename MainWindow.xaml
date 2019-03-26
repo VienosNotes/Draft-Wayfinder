@@ -16,14 +16,13 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
             <ComboBox x:Name="Sets"  Width="200" Margin="5"
                     ItemsSource="{Binding SetItems, Mode=OneTime}" SelectedItem="{Binding Set, Mode=TwoWay}"
                     VerticalContentAlignment="Center"/>
-            
+
             <ComboBox x:Name="XAxis" Margin="20, 5, 5, 5" Width="100"
                       ItemsSource="{Binding XAxisItems}" SelectedItem="{Binding XAxis, Mode=TwoWay}"
                       VerticalContentAlignment="Center"/>
@@ -31,9 +30,23 @@
             <ComboBox x:Name="YAxis"  Width="200" Margin="5"
                       ItemsSource="{Binding YAxisItems}" SelectedItem="{Binding YAxis, Mode=TwoWay}"
                       VerticalContentAlignment="Center"/>
+            <Border BorderThickness="1" BorderBrush="{StaticResource DefaultPlotForegroundBrush}" Margin="10, 5, 0, 5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+
+                    <CheckBox IsChecked="{Binding MythicCheck}" Content="Mythic" VerticalAlignment="Center" Margin="0, 0, 0, 0"
+                      Foreground="{StaticResource DefaultPlotForegroundBrush}"  VerticalContentAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding RareCheck}" Content="Rare" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                      Foreground="{StaticResource DefaultPlotForegroundBrush}" VerticalContentAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding UncommonCheck}" Content="Uncommon" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                      Foreground="{StaticResource DefaultPlotForegroundBrush}" VerticalContentAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding CommonCheck}" Content="Common" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                      Foreground="{StaticResource DefaultPlotForegroundBrush}" VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+            </Border>
+
         </StackPanel>
-        <StackPanel Grid.Row="1"></StackPanel>
-        <WrapPanel Grid.Row="2" Margin="0">
+        <WrapPanel Grid.Row="1" Margin="0">
             <WrapPanel.Resources>
                 <Style TargetType="oxy:Plot">
                     <Setter Property="Height" Value="250"/>
@@ -175,28 +188,28 @@
                     </oxy:Plot.Axes>
                 </oxy:Plot>
             </StackPanel>
-          <StackPanel Margin="10">
-            <StackPanel Orientation="Horizontal">
-              <Label Content="Colorless" Foreground="{StaticResource BrownKeyBrush}" FontSize="18" Margin="40, 0, 0, 0"/>
-              <Label Content="{Binding BrownSamples.Count}" FontSize="18" FontStyle="Italic" Foreground="{StaticResource CountNumber}"  Margin="10, 0, 0, 0"/>
-            </StackPanel>
-            <oxy:Plot x:Name="BrownPlot" TextColor="{StaticResource DefaultPlotForeground}" 
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Colorless" Foreground="{StaticResource BrownKeyBrush}" FontSize="18" Margin="40, 0, 0, 0"/>
+                    <Label Content="{Binding BrownSamples.Count}" FontSize="18" FontStyle="Italic" Foreground="{StaticResource CountNumber}"  Margin="10, 0, 0, 0"/>
+                </StackPanel>
+                <oxy:Plot x:Name="BrownPlot" TextColor="{StaticResource DefaultPlotForeground}" 
                       PlotAreaBorderColor="{StaticResource DefaultPlotForeground}" PlotAreaBorderThickness="2, 0, 0, 2">
-              <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding BrownData}" Color="{StaticResource BrownKeyColor}"/>
-              </oxy:Plot.Series>
-              <oxy:Plot.Axes>
-                <oxy:LinearAxis Position="Left" Title="{Binding YAxis}" Minimum="0" Maximum="{Binding YMax}" MinorStep="1" MajorStep="1"
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding BrownData}" Color="{StaticResource BrownKeyColor}"/>
+                    </oxy:Plot.Series>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left" Title="{Binding YAxis}" Minimum="0" Maximum="{Binding YMax}" MinorStep="1" MajorStep="1"
                                 MajorGridlineStyle="Solid" MajorGridlineThickness="1" MajorGridlineColor="{StaticResource DefaultPlotGrid}" 
                                 MinorGridlineStyle="Solid" MinorGridlineThickness="1" MinorGridlineColor="{StaticResource DefaultPlotGrid}"
                                 TicklineColor="{StaticResource DefaultPlotGrid}"
                                 AxisTitleDistance="10"/>
-                <oxy:LinearAxis Position="Bottom" Title="{Binding XAxis}" Minimum="0" Maximum="{Binding XMax}" MajorStep="1" MinorStep="1"
+                        <oxy:LinearAxis Position="Bottom" Title="{Binding XAxis}" Minimum="0" Maximum="{Binding XMax}" MajorStep="1" MinorStep="1"
                                 TicklineColor="{StaticResource DefaultPlotGrid}"
                                 AxisTitleDistance="10"/>
-              </oxy:Plot.Axes>
-            </oxy:Plot>
-          </StackPanel>
+                    </oxy:Plot.Axes>
+                </oxy:Plot>
+            </StackPanel>
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total" Foreground="{StaticResource OrangeKeyBrush}" FontSize="18" Margin="40, 0, 0, 0"/>

@@ -388,9 +388,89 @@ namespace DraftWayfinder
         #endregion
 
         #region Query Parameters
-        public IEnumerable<Rarity> Rarities => new List<Rarity> { Rarity.Common, Rarity.Uncommon, Rarity.Rare, Rarity.Mythic };
+        public IEnumerable<Rarity> Rarities
+        {
+            get
+            {
+                var result = new List<Rarity>();
+
+                if (_mythicCheck)
+                {
+                    result.Add(Rarity.Mythic);
+                }
+
+                if (_rareCheck)
+                {
+                    result.Add(Rarity.Rare);
+                }
+
+                if (_uncommonCheck)
+                {
+                    result.Add(Rarity.Uncommon);
+                }
+
+                if (_commonCheck)
+                {
+                    result.Add(Rarity.Common);
+                }
+
+                return result;
+            }
+        }
+
         public IEnumerable<Color> Colors => new List<Color> { Color.White, Color.Blue, Color.Black, Color.Red, Color.Green };
-                
+
+        private bool _mythicCheck = false;
+        public bool MythicCheck
+        {
+            get => _mythicCheck;
+            set
+            {
+                if (_mythicCheck == value) { return; }
+                _mythicCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _rareCheck = false;
+        public bool RareCheck
+        {
+            get => _rareCheck;
+            set
+            {
+                if (_rareCheck == value) { return; }
+                _rareCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _uncommonCheck = false;
+        public bool UncommonCheck
+        {
+            get => _uncommonCheck;
+            set
+            {
+                if (_uncommonCheck == value) { return; }
+                _uncommonCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _commonCheck = true;
+        public bool CommonCheck
+        {
+            get => _commonCheck;
+            set
+            {
+                if (_commonCheck == value) { return; }
+                _commonCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
         #endregion
         #endregion
 
