@@ -74,7 +74,7 @@ namespace DraftWayfinder.Models
                 {
                     switch (RawRarity)
                     {
-                        case "mythic rare":
+                        case "mythic":
                             _rarity = Rarity.Mythic;
                             break;
                         case "rare":
