@@ -6,16 +6,26 @@ using System.Threading.Tasks;
 
 namespace DraftWayfinder.Models
 {
-    public class Selector
+    public static class Selector
     {
-        public void Load(string filePath)
+        public static IEnumerable<Card> Fetch(IEnumerable<Card> pool, SelectorOptions options)
         {
+            if (options.MultiOnly)
+            {
+                return pool.Where(c => c.Colors.All(col => options.Colors.Contains(col)) &&
+                                       c.Colors.Count() >= 2 &&
+                                       options.Rarities.Contains(c.Rarity)).ToList();
+            }
 
+            return pool.Where(c => c.Colors.All(col => options.Colors.Contains(col)) &&
+                                   options.Rarities.Contains(c.Rarity)).ToList();
         }
+    }
 
-        public IEnumerable<Card> Select()
-        {
-            return new List<Card>();
-        }
+    public class SelectorOptions
+    {
+        public IEnumerable<Color> Colors;
+        public IEnumerable<Rarity> Rarities;
+        public bool MultiOnly = false;
     }
 }

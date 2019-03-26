@@ -12,6 +12,9 @@ using DraftWayfinder.Models;
 using Livet;
 using Livet.Commands;
 using OxyPlot;
+using Color = DraftWayfinder.Models.Color;
+using Selector = DraftWayfinder.Models.Selector;
+
 
 namespace DraftWayfinder
 {
@@ -49,6 +52,7 @@ namespace DraftWayfinder
         #endregion
 
         #region Binding Properties
+        #region Data Selector
         private readonly IReadOnlyCollection<string> _xAxisItems = new ReadOnlyCollection<string>(new List<string>{ _cmc, _power, _toughness });
         public IReadOnlyCollection<string> XAxisItems => _xAxisItems;
 
@@ -106,17 +110,14 @@ namespace DraftWayfinder
             {
                 if (_yAxis == value) { return; }
                 _yAxis = value;
-                UpdateGraph(_xAxis, value);
+                UpdatePlot(_xAxis, value);
                 RaisePropertyChanged();
             }
         }
 
-
-
         public IReadOnlyCollection<Set> SetItems { get; }
 
         private Set _set;
-
         public Set Set
         {
             get => _set;
@@ -127,6 +128,131 @@ namespace DraftWayfinder
                 RaisePropertyChanged();
             }
         }
+        #endregion
+
+        #region Plot Source
+        private IEnumerable<DataPoint> _whiteData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> WhiteData
+        {
+            get => _whiteData;
+            set
+            {
+                if (_whiteData == value) { return; }
+                _whiteData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _blueData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> BlueData
+        {
+            get => _blueData;
+            set
+            {
+                if (_blueData == value) { return; }
+                _blueData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _blackData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> BlackData
+        {
+            get => _blackData;
+            set
+            {
+                if (_blackData == value) { return; }
+                _blackData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _redData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> RedData
+        {
+            get => _redData;
+            set
+            {
+                if (_redData == value) { return; }
+                _redData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _greenData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> GreenData
+        {
+            get => _greenData;
+            set
+            {
+                if (_greenData == value) { return; }
+                _greenData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _goldData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> GoldData
+        {
+            get => _goldData;
+            set
+            {
+                if (_goldData == value) { return; }
+                _goldData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private IEnumerable<DataPoint> _totalData = new List<DataPoint>();
+
+        public IEnumerable<DataPoint> TotalData
+        {
+            get => _totalData;
+            set
+            {
+                if (_totalData == value) { return; }
+                _totalData = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private double _yMax = 10;
+        public double YMax
+        {
+            get => _yMax;
+            set
+            {
+                if (_yMax == value) { return; }
+                _yMax = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private double _xMax = 10;
+        public double XMax
+        {
+            get => _xMax;
+            set
+            {
+                if (_xMax == value) { return; }
+                _xMax = value;
+                RaisePropertyChanged();
+            }
+
+        }
+        #endregion
+
+        #region Query Parameters
+        public IEnumerable<Rarity> Rarities => new List<Rarity> { Rarity.Common, Rarity.Uncommon, Rarity.Rare, Rarity.Mythic };
+        public IEnumerable<Color> Colors => new List<Color> { Color.White, Color.Blue, Color.Black, Color.Red, Color.Green };
+                
+        #endregion
         #endregion
 
         public MainWindowViewModel()
@@ -142,38 +268,51 @@ namespace DraftWayfinder
         {
             var cards = Set.GetCards();
             Console.WriteLine($"LOAD {cards.Count()} cards");
+            UpdatePlot(_xAxis, _yAxis);
             return;
         }
 
-        private void UpdateGraph(string xAxis, string value)
+        private void UpdatePlot(string xAxis, string value)
         {
             var cards = Set.GetCards();
             if (xAxis == _cmc)
             {
                 if (value == _avgPower)
                 {
-                    WhiteData = PlotModelFactory.GetCMCAvgPower(cards);
+                    UpdatePlotInner(PlotModelFactory.GetCMCAvgPower, cards);
                 }
                 else if (value == _numOfCreatures)
                 {
-                    WhiteData = PlotModelFactory.GetNumOfCreatures(cards);
+                    UpdatePlotInner(PlotModelFactory.GetNumOfCreatures, cards);
                 }
             }
 
             return;
         }
 
-        private IEnumerable<DataPoint> _whiteData = new List<DataPoint>();
-
-        public IEnumerable<DataPoint> WhiteData
+        private void UpdatePlotInner(Func<IEnumerable<Card>, IEnumerable<DataPoint>> func, IEnumerable<Card> pool)
         {
-            get => _whiteData;
-            set
+            var cards = pool.ToList();
+            WhiteData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.White}, Rarities = Rarities})).ToList();
+            BlueData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Blue}, Rarities = Rarities})).ToList();
+            BlackData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Black}, Rarities = Rarities})).ToList();
+            RedData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Red}, Rarities = Rarities})).ToList();
+            GreenData = func.Invoke(Selector.Fetch(cards, new SelectorOptions {Colors = new[] {Color.Green}, Rarities = Rarities})).ToList();
+            GoldData = func.Invoke(Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities, MultiOnly = true })).ToList();
+
+            var points = new List<IEnumerable<DataPoint>> {WhiteData, BlueData, BlackData, RedData, GreenData, GoldData}.SelectMany(l => l).ToList();
+
+            try
             {
-                if (_whiteData == value) { return; }
-                _whiteData = value;
-                RaisePropertyChanged();
+                XMax = points.Max(p => p.X);
+                YMax = points.Max(p => p.Y);
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            TotalData = func.Invoke(Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities })).ToList();            
         }
         
     }

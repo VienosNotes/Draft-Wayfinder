@@ -99,7 +99,7 @@ namespace DraftWayfinder.Models
                 {
                     var deserialized = (Cards) serializer.ReadObject(reader);
                     var allCreatures = deserialized.Body
-                        .Where(s => s.Type.Contains("Creature"));
+                        .Where(s => s.Types.Contains("Creature"));
                     _cache = allCreatures.ToList();
                     return _cache;
                 }

@@ -12,20 +12,12 @@ namespace DraftWayfinder.Models
 {
     public static class PlotModelFactory
     {
-        private static double NormalizePT(string raw)
-        {
-            if (double.TryParse(raw, out var nor))
-            {
-                return nor;
-            }
 
-            return 0;
-        }
 
         public static IEnumerable<DataPoint> GetCMCAvgPower(IEnumerable<Card> samples)
-        {
+        {            
             var groups = samples.GroupBy(s => s.CMC)
-                                .Select(g => new DataPoint(g.Key, g.Average(c => NormalizePT(c.RawPower))))
+                                .Select(g => new DataPoint(g.Key, g.Average(c => c.Power)))
                                 .OrderBy(dp => dp.X);
 
             return groups.ToList();
@@ -33,6 +25,7 @@ namespace DraftWayfinder.Models
 
         public static IEnumerable<DataPoint> GetNumOfCreatures(IEnumerable<Card> samples)
         {
+            Console.WriteLine(samples.Count());
             var groups = samples.GroupBy(s => s.CMC)
                 .Select(g => new DataPoint(g.Key, g.Count()))
                 .OrderBy(dp => dp.X);
