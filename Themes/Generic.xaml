@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
-                    xmlns:c="clr-namespace:DraftWayfinder.Controls">
+                    xmlns:c="clr-namespace:DraftWayfinder.Controls"                    
+                    xmlns:oxy="http://oxyplot.org/wpf">
     <!-- GlowDialog -->    
     <Style TargetType="c:GlowWindow">
         <Setter Property="Template">
@@ -428,5 +429,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Color x:Key="DefaultPlotForeground" R="0x9C" G="0x9C" B="0x9C" A="0xFF"/>
+    <Color x:Key="DefaultPlotGrid" R="0x9C" G="0x9C" B="0x9C" A="0x66"/>
+    <Color x:Key="WhiteKeyColor" R="0xED" G="0xE9" B="0xDE" A="0xFF" />
+    <SolidColorBrush x:Key="WhiteKeyBrush" Color="{StaticResource WhiteKeyColor}"/>
     <!-- Button End -->
+    <Style TargetType="oxy:Plot">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style TargetType="oxy:LinearAxis">
+        <Setter Property="AxislineColor" Value="White" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultPlotForeground}" />
+    </Style>
 </ResourceDictionary>

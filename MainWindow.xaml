@@ -33,16 +33,45 @@
                       VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="1"></StackPanel>
-        <WrapPanel Grid.Row="2" Width="500" Height="300">
-            <oxy:Plot Width="500" Height="300">
-                <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding WhiteData}" Foreground="Aqua"/>
-                </oxy:Plot.Series>
-                <oxy:Plot.Axes>
-                  <oxy:LinearAxis Position="Left" Title="Avg Power" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"/>
-                  <oxy:LinearAxis Position="Bottom" Title="CMC" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"/>
-                </oxy:Plot.Axes>
+        <WrapPanel Grid.Row="2" Margin="0">
+            <StackPanel Margin="10">
+                <Label Content="White" Foreground="{StaticResource WhiteKeyBrush}" FontSize="18" Margin="40, 0, 0, 0"/>
+                <oxy:Plot x:Name="WhitePlot" Width="500" Height="300" TextColor="{StaticResource DefaultPlotForeground}" 
+                      PlotAreaBorderColor="{StaticResource DefaultPlotForeground}" PlotAreaBorderThickness="2, 0, 0, 2">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding WhiteData}" Color="{StaticResource WhiteKeyColor}"/>
+                    </oxy:Plot.Series>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left" Title="{Binding YAxis}" Minimum="0" Maximum="16" MinorStep="1" MajorStep="1"
+                                    MajorGridlineStyle="Solid" MajorGridlineThickness="1" MajorGridlineColor="{StaticResource DefaultPlotGrid}" 
+                                    MinorGridlineStyle="Solid" MinorGridlineThickness="1" MinorGridlineColor="{StaticResource DefaultPlotGrid}"
+                                    TicklineColor="{StaticResource DefaultPlotGrid}"
+                                    AxisTitleDistance="10"/>
+                        <oxy:LinearAxis Position="Bottom" Title="{Binding XAxis}" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"
+                                    TicklineColor="{StaticResource DefaultPlotGrid}"
+                                    AxisTitleDistance="10"/>
+                    </oxy:Plot.Axes>
+                </oxy:Plot>
+            </StackPanel>
+          <StackPanel Margin="10">
+            <Label Content="White" Foreground="{StaticResource WhiteKeyBrush}" FontSize="18" Margin="40, 0, 0, 0"/>
+            <oxy:Plot x:Name="BluePlot" Width="500" Height="300" TextColor="{StaticResource DefaultPlotForeground}" 
+                      PlotAreaBorderColor="{StaticResource DefaultPlotForeground}" PlotAreaBorderThickness="2, 0, 0, 2">
+              <oxy:Plot.Series>
+                <oxy:LineSeries ItemsSource="{Binding WhiteData}" Color="{StaticResource WhiteKeyColor}"/>
+              </oxy:Plot.Series>
+              <oxy:Plot.Axes>
+                <oxy:LinearAxis Position="Left" Title="{Binding YAxis}" Minimum="0" Maximum="16" MinorStep="1" MajorStep="1"
+                                MajorGridlineStyle="Solid" MajorGridlineThickness="1" MajorGridlineColor="{StaticResource DefaultPlotGrid}" 
+                                MinorGridlineStyle="Solid" MinorGridlineThickness="1" MinorGridlineColor="{StaticResource DefaultPlotGrid}"
+                                TicklineColor="{StaticResource DefaultPlotGrid}"
+                                AxisTitleDistance="10"/>
+                <oxy:LinearAxis Position="Bottom" Title="{Binding XAxis}" Minimum="0" Maximum="16" MajorStep="1" MinorStep="1"
+                                TicklineColor="{StaticResource DefaultPlotGrid}"
+                                AxisTitleDistance="10"/>
+              </oxy:Plot.Axes>
             </oxy:Plot>
+          </StackPanel>
         </WrapPanel>
     </Grid>
 </c:GlowWindow>
