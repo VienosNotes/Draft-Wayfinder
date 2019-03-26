@@ -418,7 +418,41 @@ namespace DraftWayfinder
             }
         }
 
-        public IEnumerable<Color> Colors => new List<Color> { Color.White, Color.Blue, Color.Black, Color.Red, Color.Green };
+        public IEnumerable<Color> Colors
+        {
+            get
+            {
+                var result = new List<Color>();
+
+                if (_whiteCheck)
+                {
+                    result.Add(Color.White);
+                }
+
+                if (_blueCheck)
+                {
+                    result.Add(Color.Blue);
+                }
+
+                if (_blackCheck)
+                {
+                    result.Add(Color.Black);
+                }
+
+                if (_redCheck)
+                {
+                    result.Add(Color.Red);
+                }
+
+                if (_greenCheck)
+                {
+                    result.Add(Color.Green);
+                }
+
+                return result;
+            }
+        }
+        //public IEnumerable<Color> Colors => new List<Color> { Color.White, Color.Blue, Color.Black, Color.Red, Color.Green };
 
         private bool _mythicCheck = false;
         public bool MythicCheck
@@ -467,6 +501,71 @@ namespace DraftWayfinder
             {
                 if (_commonCheck == value) { return; }
                 _commonCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _whiteCheck = true;
+        public bool WhiteCheck
+        {
+            get => _whiteCheck;
+            set
+            {
+                if (_whiteCheck == value) { return; }
+                _whiteCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _blueCheck = true;
+        public bool BlueCheck
+        {
+            get => _blueCheck;
+            set
+            {
+                if (_blueCheck == value) { return; }
+                _blueCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _blackCheck = true;
+        public bool BlackCheck
+        {
+            get => _blackCheck;
+            set
+            {
+                if (_blackCheck == value) { return; }
+                _blackCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _redCheck = true;
+        public bool RedCheck
+        {
+            get => _redCheck;
+            set
+            {
+                if (_redCheck == value) { return; }
+                _redCheck = value;
+                RaisePropertyChanged();
+                LoadPoolImpl();
+            }
+        }
+
+        private bool _greenCheck = true;
+        public bool GreenCheck
+        {
+            get => _greenCheck;
+            set
+            {
+                if (_greenCheck == value) { return; }
+                _greenCheck = value;
                 RaisePropertyChanged();
                 LoadPoolImpl();
             }
@@ -628,7 +727,9 @@ namespace DraftWayfinder
                 Console.WriteLine(e.Message);
             }
 
-            TotalSamples = Selector.Fetch(cards, new SelectorOptions { Colors = Colors, Rarities = Rarities });
+            var totalColors = Colors.ToList();
+            totalColors.Add(Color.Colorless);
+            TotalSamples = Selector.Fetch(cards, new SelectorOptions { Colors = totalColors, Rarities = Rarities });
             TotalData = func.Invoke(TotalSamples).ToList();
 
             try
