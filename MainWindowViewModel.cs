@@ -25,7 +25,7 @@ namespace DraftWayfinder
         private static readonly string _power = "Power";
         private static readonly string _toughness = "Toughness";
         private static readonly string _numOfCreatures = "Number of Creatures";
-        private static readonly string _numOfFlyers = "Number of Flyers";
+        private static readonly string _numOfFlyers = "Number of Flyers (Experimental)";
         private static readonly string _avgPower = "Average Power";
         private static readonly string _avgToughness = "Average Toughness";
         private static readonly string _maxPower = "Max Power";
@@ -41,12 +41,12 @@ namespace DraftWayfinder
 
         private static readonly IReadOnlyCollection<string> _powerItems = new List<string>
         {
-            _numOfCreatures, _numOfFlyers, _avgCMC, _minCMC, _avgToughness, _maxToughness
+            _numOfCreatures, _numOfFlyers, _avgCMC, _minCMC, _avgToughness, _maxToughness, _avgRatio
         };
 
         private static readonly IReadOnlyCollection<string> _toughnessItems = new List<string>
         {
-            _numOfCreatures, _numOfFlyers, _avgCMC, _minCMC, _avgPower, _maxPower
+            _numOfCreatures, _numOfFlyers, _avgCMC, _minCMC, _avgPower, _maxPower, _avgRatio
         };
 
         #endregion
@@ -85,9 +85,6 @@ namespace DraftWayfinder
                 {
                     throw new NotImplementedException();
                 }
-
-                RaisePropertyChanged(nameof(YAxisItems));
-                RaisePropertyChanged(nameof(YAxis));
             }
         }
 
@@ -108,8 +105,6 @@ namespace DraftWayfinder
             get => _yAxis;
             set
             {
-                if (_yAxis == value) { return; }
-                _yAxis = value;
                 UpdatePlot(_xAxis, value);
                 RaisePropertyChanged();
             }
@@ -126,6 +121,7 @@ namespace DraftWayfinder
                 if (_set == value) { return; }
                 _set = value;
                 RaisePropertyChanged();
+                LoadPoolImpl();
             }
         }
         #endregion
@@ -401,7 +397,8 @@ namespace DraftWayfinder
         public MainWindowViewModel()
         {
             SetItems = new ReadOnlyCollection<Set>(Set.AllSets().ToList());
-            _set = SetItems.FirstOrDefault();
+            Set = SetItems.FirstOrDefault();
+            LoadPoolImpl();
         }
 
         private ViewModelCommand _loadPoolCommand;
@@ -420,13 +417,95 @@ namespace DraftWayfinder
             var cards = Set.GetCards();
             if (xAxis == _cmc)
             {
-                if (value == _avgPower)
+                if (value == _numOfCreatures)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetCMCNumOfCreatures, cards);
+                }
+                else if (value == _numOfFlyers)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetCMCNumOfFlyers, cards);
+                }
+                else if (value == _avgPower)
                 {
                     UpdatePlotInner(PlotModelFactory.GetCMCAvgPower, cards);
                 }
-                else if (value == _numOfCreatures)
+                else if (value == _avgToughness)
                 {
-                    UpdatePlotInner(PlotModelFactory.GetNumOfCreatures, cards);
+                    UpdatePlotInner(PlotModelFactory.GetCMCAvgToughness, cards);
+                }
+                else if (value == _maxPower)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetCMCMaxPower, cards);
+                }
+                else if (value == _maxToughness)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetCMCMaxToughness, cards);
+                }
+                else if (value == _avgRatio)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetCMCAvgRatio, cards);
+                }
+            }
+            else if (xAxis == _power)
+            {
+                if (value == _numOfCreatures)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerNumOfCreatures, cards);
+                }
+                else if (value == _numOfFlyers)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerNumOfFlyers, cards);
+                }
+                else if (value == _avgCMC)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerAvgCMC, cards);
+                }
+                else if (value == _minCMC)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerMinCMC, cards);
+                }
+                else if (value == _maxToughness)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerMaxToughness, cards);
+                }
+                else if (value == _avgToughness)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerAvgToughness, cards);
+                }
+                else if (value == _avgRatio)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetPowerAvgRatio, cards);
+                }
+            }
+            else if (xAxis == _toughness)
+            {
+                if (value == _numOfCreatures)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessNumOfCreatures, cards);
+                }
+                else if (value == _numOfFlyers)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessNumOfFlyers, cards);
+                }
+                else if (value == _avgCMC)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessAvgCMC, cards);
+                }
+                else if (value == _minCMC)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessMinCMC, cards);
+                }
+                else if (value == _maxToughness)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessMaxPower, cards);
+                }
+                else if (value == _avgToughness)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessAvgPower, cards);
+                }
+                else if (value == _avgRatio)
+                {
+                    UpdatePlotInner(PlotModelFactory.GetToughnessAvgRatio, cards);
                 }
             }
 

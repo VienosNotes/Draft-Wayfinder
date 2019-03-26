@@ -17,52 +17,36 @@ namespace DraftWayfinder.Models
         [DataMember(Name = "power")]
         public string RawPower;
 
-        private double _power = Double.NaN;
         public double Power
         {
             get
             {
-                if (double.IsNaN(_power))
+                if (double.TryParse(RawPower, out var nor))
                 {
-                    if (double.TryParse(RawPower, out var nor))
-                    {
-                        _power = nor;
-                    }
-                    else
-                    {
-                        _power = 0;
-                    }
+                    return nor;
                 }
-                return _power;
+                return 0;
             }
         }
 
         [DataMember(Name = "toughness")]
         public string RawToughness;
 
-        private double _toughness = Double.NaN;
         public double Toughness
         {
             get
             {
-                if (double.IsNaN(_toughness))
+                if (double.TryParse(RawToughness, out var nor))
                 {
-                    if (double.TryParse(RawToughness, out var nor))
-                    {
-                        _toughness = nor;
-                    }
-                    else
-                    {
-                        _toughness = 0;
-                    }
+                    return nor;
                 }
-                return _toughness;
+                return 0;
             }
         }
 
         [DataMember(Name = "manaCost")]
         public string Cost;
-        [DataMember(Name="rarity")]
+        [DataMember(Name = "rarity")]
         public string RawRarity;
 
         private Rarity _rarity = Rarity.Unset;
@@ -136,6 +120,9 @@ namespace DraftWayfinder.Models
 
         [DataMember(Name = "types")]
         public List<string> Types;
+
+        [DataMember(Name = "text")]
+        public string Text;
     }
 
     [DataContract]
