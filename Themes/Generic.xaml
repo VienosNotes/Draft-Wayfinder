@@ -433,11 +433,24 @@
     <Color x:Key="DefaultPlotForeground" R="0x9C" G="0x9C" B="0x9C" A="0xFF"/>
     <Color x:Key="DefaultPlotGrid" R="0x9C" G="0x9C" B="0x9C" A="0x66"/>
     <Color x:Key="WhiteKeyColor" R="0xED" G="0xE9" B="0xDE" A="0xFF" />
+    <Color x:Key="BlueKeyColor" R="0x42" G="0x86" B="0xF4" A="0xFF" />
+    <Color x:Key="BlackKeyColor" R="0xB0" G="0x7F" B="0xE8" A="0xFF" />
+    <Color x:Key="RedKeyColor" R="0xFF" G="0x66" B="0x66" A="0xFF" />
+    <Color x:Key="GreenKeyColor" R="0x4F" G="0xD6" B="0x51" A="0xFF" />
+    <Color x:Key="GoldKeyColor" R="0xD1" G="0xD6" B="0x4D" A="0xFF" />
+    <Color x:Key="OrangeKeyColor" R="0xF9" G="0x7E" B="0x2C" A="0xFF" />
+
+
     <SolidColorBrush x:Key="WhiteKeyBrush" Color="{StaticResource WhiteKeyColor}"/>
-    <!-- Button End -->
-    <Style TargetType="oxy:Plot">
-        <Setter Property="Background" Value="Transparent"/>
-    </Style>
+    <SolidColorBrush x:Key="BlueKeyBrush" Color="{StaticResource BlueKeyColor}"/>
+    <SolidColorBrush x:Key="BlackKeyBrush" Color="{StaticResource BlackKeyColor}"/>
+    <SolidColorBrush x:Key="RedKeyBrush" Color="{StaticResource RedKeyColor}"/>
+    <SolidColorBrush x:Key="GreenKeyBrush" Color="{StaticResource GreenKeyColor}"/>
+    <SolidColorBrush x:Key="GoldKeyBrush" Color="{StaticResource GoldKeyColor}"/>
+    <SolidColorBrush x:Key="OrangeKeyBrush" Color="{StaticResource OrangeKeyColor}"/>
+
+<!-- Button End -->
+
     <Style TargetType="oxy:LinearAxis">
         <Setter Property="AxislineColor" Value="White" />
         <Setter Property="TextColor" Value="{StaticResource DefaultPlotForeground}" />
