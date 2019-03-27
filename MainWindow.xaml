@@ -32,7 +32,6 @@
                       VerticalContentAlignment="Center"/>
             <Border BorderThickness="1" BorderBrush="{StaticResource DefaultPlotForegroundBrush}" Margin="10, 5, 0, 5">
                 <StackPanel Orientation="Horizontal" Margin="5">
-
                     <CheckBox IsChecked="{Binding MythicCheck}" Content="Mythic" VerticalAlignment="Center" Margin="0, 0, 0, 0"
                       Foreground="{StaticResource DefaultPlotForegroundBrush}"  VerticalContentAlignment="Center"/>
                     <CheckBox IsChecked="{Binding RareCheck}" Content="Rare" VerticalAlignment="Center" Margin="20, 0, 0, 0"
@@ -45,20 +44,18 @@
             </Border>
 
             <Border BorderThickness="1" BorderBrush="{StaticResource DefaultPlotForegroundBrush}" Margin="10, 5, 0, 5">
-              <StackPanel Orientation="Horizontal" Margin="5">
-
-                <CheckBox IsChecked="{Binding WhiteCheck}" Content="White" VerticalAlignment="Center" Margin="0, 0, 0, 0"
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <CheckBox IsChecked="{Binding WhiteCheck}" Content="White" VerticalAlignment="Center" Margin="0, 0, 0, 0"
                           Foreground="{StaticResource WhiteKeyBrush}"  VerticalContentAlignment="Center"/>
-                <CheckBox IsChecked="{Binding BlueCheck}" Content="Blue" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                    <CheckBox IsChecked="{Binding BlueCheck}" Content="Blue" VerticalAlignment="Center" Margin="20, 0, 0, 0"
                           Foreground="{StaticResource BlueKeyBrush}" VerticalContentAlignment="Center"/>
-                <CheckBox IsChecked="{Binding BlackCheck}" Content="Black" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                    <CheckBox IsChecked="{Binding BlackCheck}" Content="Black" VerticalAlignment="Center" Margin="20, 0, 0, 0"
                           Foreground="{StaticResource BlackKeyBrush}" VerticalContentAlignment="Center"/>
-                <CheckBox IsChecked="{Binding RedCheck}" Content="Red" VerticalAlignment="Center" Margin="20, 0, 0, 0"
+                    <CheckBox IsChecked="{Binding RedCheck}" Content="Red" VerticalAlignment="Center" Margin="20, 0, 0, 0"
                           Foreground="{StaticResource RedKeyBrush}" VerticalContentAlignment="Center"/>
-                <CheckBox IsChecked="{Binding GreenCheck}" Content="Green" VerticalAlignment="Center" Margin="20, 0, 5, 0"
+                    <CheckBox IsChecked="{Binding GreenCheck}" Content="Green" VerticalAlignment="Center" Margin="20, 0, 5, 0"
                           Foreground="{StaticResource GreenKeyBrush}" VerticalContentAlignment="Center"/>
                 </StackPanel>
-
             </Border>
 
         </StackPanel>

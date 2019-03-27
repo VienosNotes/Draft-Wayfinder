@@ -96,6 +96,7 @@ namespace DraftWayfinder
             {
                 if (_yAxisItems == value) { return; }
                 _yAxisItems = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -105,6 +106,7 @@ namespace DraftWayfinder
             get => _yAxis;
             set
             {
+                _yAxis = value;
                 UpdatePlot(_xAxis, value);
                 RaisePropertyChanged();
             }
